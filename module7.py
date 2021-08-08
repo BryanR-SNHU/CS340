@@ -6,7 +6,31 @@ import json
 from bson import json_util
 from collections import OrderedDict
 import bottle
-from bottle import route,run,request,post,abort
+from bottle import route,run,request,post,abort,static_file
+
+# HTML home page for graphical use
+@route('/index',method='GET')
+def index():
+  page = """
+  <!DOCTYPE html>
+  <html>
+  <body>
+  <h4>Search for stock by name:</h4><br>
+  <form action="none" method="GET" id="getStockForm">
+  <input type="text" placeholder="stock name" name="stockname">
+  <input type="submit" value="Search">
+  </form><br>
+  <h4>Search for stocks by industry:</h4><br>
+  <form action="none" method="GET" id="getIndustryForm">
+  <input type="text" placeholder="industry" name="industry">
+  <input type="submit" value="Search">
+  </form><br>
+  <script type="text/javascript" src="module7.js"></script>
+
+  </body>
+  </html>"""
+
+  return bottle.HTTPResponse(status=200, body=page)
 
 # Create a new entry using a json request
 @route('/stocks/api/v1.0/createStock',method='POST')
@@ -190,6 +214,9 @@ def portfolio(url):
   
   return bottle.HTTPResponse(status=200, body=resultList + "\n")
 
+@route('/<filename:path>', name='static')
+def serve_static(filename):
+  return static_file(filename, root='./')
 
 if __name__=='__main__':
   
