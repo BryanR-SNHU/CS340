@@ -9,6 +9,7 @@ import bottle
 from bottle import route,run,request,post,abort,static_file
 
 # HTML home page for graphical use
+@route('/')
 @route('/index',method='GET')
 def index():
   page = """
@@ -24,6 +25,41 @@ def index():
   <form action="none" method="GET" id="getIndustryForm">
   <input type="text" placeholder="industry" name="industry">
   <input type="submit" value="Search">
+  </form><br>
+  <h4>Search for stocks with an average in a range:</h4><br>
+  <form action="none" method="POST" id="getAverageForm">
+  <input type="text" placeholder="low" name="low">
+  <input type="text" placeholder="high" name="high">
+  <input type="submit" value="Search">
+  </form>
+  <p id="averageResult"> </p><br>
+  <h4>Show top 5 stocks in industry:</h4><br>
+  <form action="none" method="GET" id="getIndustryReportForm">
+  <input type="text" placeholder="industry" name="industry">
+  <input type="submit" value="Search">
+  </form><br>
+  <h4>Show outstanding shares in same sector as company:</h4><br>
+  <form action="none" method="GET" id="getPortfolioForm">
+  <input type="text" placeholder="company" name="company">
+  <input type="submit" value="Search">
+  </form><br>
+  <h4>Show multiple stocks by name:</h4><br>
+  <form action="none" method="GET" id="getStockReportForm">
+  <input type="text" placeholder="stock,stock,stock ..." name="stockArr">
+  <input type="submit" value="Search">
+  </form><br>
+  <p id="reportResult"> </p><br>
+  <h4>Update volume of stock by name:</h4><br>
+  <form action="none" method="GET" id="updateStockForm">
+  <input type="text" placeholder="stock name" name="stockname">
+  <input type="text" placeholder="volume" name="volume">
+  <input type="submit" value="Update">
+  </form><br>
+  <p id="updateResult"> </p><br>
+  <h4>Delete stock by name:</h4><br>
+  <form action="none" method="GET" id="deleteStockForm">
+  <input type="text" placeholder="stock name" name="stockname">
+  <input type="submit" value="Delete">
   </form><br>
   <script type="text/javascript" src="module7.js"></script>
 
